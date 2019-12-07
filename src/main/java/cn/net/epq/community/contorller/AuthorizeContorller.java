@@ -43,7 +43,7 @@ public class AuthorizeContorller {
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        if (githubUser != null){
+        if (githubUser != null && githubUser.getId() != null){
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -51,6 +51,7 @@ public class AuthorizeContorller {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             userMapper.insert(user);
             response.addCookie(new Cookie("token", token));
             return "redirect:/"; //跳转到index页面
