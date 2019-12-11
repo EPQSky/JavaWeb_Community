@@ -1,7 +1,6 @@
 package cn.net.epq.community.contorller;
 
 import cn.net.epq.community.dto.PaginationDTO;
-import cn.net.epq.community.mapper.UserMapper;
 import cn.net.epq.community.model.User;
 import cn.net.epq.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ProfileContorller {
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private QuestionService questionService;
@@ -29,20 +24,7 @@ public class ProfileContorller {
                           @RequestParam(name = "size", defaultValue = "5") Integer size,
                           @PathVariable(name = "action") String action,
                           Model model){
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0){
-            for (Cookie cookie : cookies){
-                if (cookie.getName().equals("token")){
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null){
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null){
             return "redirect:/";
         }
