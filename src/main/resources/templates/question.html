@@ -31,6 +31,47 @@
                 <span class="label label-success" th:text="${question.tag}"></span>
             </div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4 class="col-lg-12 col-md-12 col-sm-12 col-xs-12">&emsp;<span th:text="0个回复"></span></h4>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="media col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment:${pagination.comments}">
+                <div class="media-left">
+                    <span>
+                        <img class="media-object img-rounded" th:src="${comment.user.avatarUrl}">
+                    </span>
+                </div>
+                <div class="media-body">
+                    <h5 class="media-heading">
+                        <span th:text="${comment.user.name}"></span>&nbsp;
+                        <small>
+                            <span th:text="${#dates.format(comment.gmtCreate, 'yyyy-MM-dd HH:mm:ss')}"></span>&nbsp;
+                            <a href="#" th:if="${session.user != null && session.user.id == comment.commentator}">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                删除
+                            </a>
+                        </small>
+                    </h5>
+                    <h4>
+                        <span th:text="${comment.content}"></span>
+                    </h4>
+                </div>
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <form class="col-lg-9 col-md-9 col-sm-12 col-xs-12" method="post">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label>提交回复</label>
+                    <textarea name="content" class="form-control" cols="30" rows="5" th:text="${content}" required autofocus></textarea>
+                </div>
+                <div class="container-fluid main">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"  th:text="${error}" th:if="${error != null}"></div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish">回复</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 2%">

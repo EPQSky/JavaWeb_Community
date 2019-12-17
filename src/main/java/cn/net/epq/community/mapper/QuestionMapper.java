@@ -1,12 +1,10 @@
 package cn.net.epq.community.mapper;
 
-import cn.net.epq.community.dto.QuestionDTO;
 import cn.net.epq.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
