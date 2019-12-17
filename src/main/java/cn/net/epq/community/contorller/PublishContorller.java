@@ -1,7 +1,6 @@
 package cn.net.epq.community.contorller;
 
 import cn.net.epq.community.dto.QuestionDTO;
-import cn.net.epq.community.mapper.QuestionMapper;
 import cn.net.epq.community.model.Question;
 import cn.net.epq.community.model.User;
 import cn.net.epq.community.service.QuestionService;

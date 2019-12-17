@@ -1,18 +1,18 @@
 package cn.net.epq.community.contorller;
 
-import cn.net.epq.community.dto.CommentDTO;
 import cn.net.epq.community.dto.PaginationDTO;
 import cn.net.epq.community.dto.QuestionDTO;
 import cn.net.epq.community.mapper.CommentMapper;
 import cn.net.epq.community.model.Comment;
-import cn.net.epq.community.model.Question;
 import cn.net.epq.community.model.User;
 import cn.net.epq.community.service.CommentService;
 import cn.net.epq.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +24,9 @@ public class QuestionContorller {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @GetMapping("/question")
     public String question(@RequestParam(name = "id") Integer id,
@@ -59,8 +62,10 @@ public class QuestionContorller {
         comment.setType(1);
         comment.setCommentator(user.getId());
         comment.setContent(content);
+        comment.setGmtCreate(System.currentTimeMillis());
+        comment.setGmtModified(comment.getGmtCreate());
 
-        commentService.createOrUpdate(comment);
+        commentMapper.create(comment);
 
         return "redirect:/question?id="+id;
     }

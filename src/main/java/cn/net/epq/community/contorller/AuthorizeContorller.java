@@ -2,7 +2,6 @@ package cn.net.epq.community.contorller;
 
 import cn.net.epq.community.dto.AccessTokenDTO;
 import cn.net.epq.community.dto.GithubUser;
-import cn.net.epq.community.mapper.UserMapper;
 import cn.net.epq.community.model.User;
 import cn.net.epq.community.provider.GithubProvider;
 import cn.net.epq.community.service.UserService;

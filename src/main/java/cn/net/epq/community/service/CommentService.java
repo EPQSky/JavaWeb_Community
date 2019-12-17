@@ -22,28 +22,6 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
-    public void createOrUpdate(Comment comment) {
-        if (comment.getId() == null){
-            //创建
-            comment.setGmtCreate(System.currentTimeMillis());
-            comment.setGmtModified(comment.getGmtCreate());
-            commentMapper.create(comment);
-        }else {
-            //更新
-            comment.setGmtModified(System.currentTimeMillis());
-            commentMapper.update(comment);
-        }
-    }
-
-    public CommentDTO getById(Integer id) {
-        Comment comment = commentMapper.getById(id);
-        CommentDTO commentDTO = new CommentDTO();
-        BeanUtils.copyProperties(comment, commentDTO);
-        User user = userMapper.findById(comment.getCommentator());
-        commentDTO.setUser(user);
-        return commentDTO;
-    }
-
     public PaginationDTO list(Integer id) {
         PaginationDTO paginationDTO = new PaginationDTO();
         List<Comment> comments = commentMapper.list(id);
