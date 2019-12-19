@@ -34,4 +34,7 @@ public interface QuestionMapper {
 
     @Select("select count(1) from question where title like '%${search}%'")
     Integer select(String search);
+
+    @Select("select count(1) from comment where parent_id = #{parentId}")
+    Integer commentCountById(Integer parentId);
 }

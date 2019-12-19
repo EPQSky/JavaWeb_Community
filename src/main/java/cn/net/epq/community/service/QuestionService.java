@@ -49,6 +49,7 @@ public class QuestionService {
         List<Question> questions = questionMapper.list(search, offset, size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions){
+            question.setCommentCount(questionMapper.commentCountById(question.getId()));
             User user = userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
